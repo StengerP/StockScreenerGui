@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import json
 import plotly.graph_objects as go
 from urllib.request import urlopen
+from pathlib import Path
 
 class FinanceAPI():
     """
@@ -34,28 +35,6 @@ class FinanceAPI():
     
     def __repr__(self):
         return ("This is a finance API class.\n")
-    
-    def profile_data_(self,symbol):
-        """
-        Pulls the metrics data from the API for the given ticker symbol
-
-        Parameters
-        ----------
-        symbol : A ticker symbol (str) e.g. 'MSFT','FB','AAPL', or 'TWTR'
-
-        Returns
-        -------
-        None. Updates the self.profile with the data. 
-        """        
-        if not self.key_registered:
-            print("API key not registered yet.")
-            return None
-        
-        url = "https://financialmodelingprep.com/api/v3/"+\
-            "company/profile/"+str(symbol)+'?apikey='+self.key
-        response = urlopen(url)
-        data = response.read().decode("utf-8")
-        self.profile = json.loads(data)
 
         
     def metrics_data_(self,symbol):
@@ -102,27 +81,6 @@ class FinanceAPI():
         data = response.read().decode("utf-8")
         self.ratios = json.loads(data)
 
-    def income_statement_data_(self, symbol):
-        """
-        Pulls the income statement data from the API for the given ticker symbol
-
-        Parameters
-        ----------
-        symbol : A ticker symbol (str) e.g. 'MSFT','FB','AAPL', or 'TWTR'
-
-        Returns
-        -------
-        None. Updates the self.metrics with the data.
-        """
-        if not self.key_registered:
-            print("API key not registered yet.")
-            return None
-
-        url = self.originUrl+"income-statement/"+str(symbol)+"?apikey="+self.key
-        response = urlopen(url)
-        data = response.read().decode("utf-8")
-        self.income_statement = json.loads(data)
-
     
     def build_dict(self,symbol,save=False):
         """
@@ -140,18 +98,22 @@ class FinanceAPI():
         if not self.key_registered:
             print("API key not registered yet.")
             return None
-        
-        self.profile_data_(symbol)
+
+        d_profile = self.callAPI_financialModelingPrep_(symbol, call="profile")
+        d_income_statement = self.callAPI_financialModelingPrep_(symbol, call="income_statement")
         # self.metrics_data_(symbol)
         # self.ratios_data_(symbol)
-        self.income_statement_data_(symbol)
-        # Empty dict
+
         data_dict = {}
-        # Symbol
         data_dict['symbol'] = symbol
+
         # Profile data
-        for k in self.profile['profile'].keys():
-            data_dict[k] = self.profile['profile'][k]
+        data_dict["profile"] = {}
+        dict_profile = {}
+        for k in d_profile.keys():
+            dict_profile[k] = d_profile[k]
+        data_dict["profile"] = dict_profile
+
         # # Metrics data
         # for k in self.metrics['metrics'][0].keys():
         #     data_dict[k]=self.metrics['metrics'][0][k]
@@ -160,14 +122,16 @@ class FinanceAPI():
         # for k in c[2:]:
         #     data_dict[k[0]]=k[1]
 
+        # income statement data
         data_dict["income_statement"] = {}
-        for num in range(0, len(self.income_statement)):
+        for year in d_income_statement.keys():
             dict_incomeStatement = {}
-            for k in self.income_statement[num].keys():
-                dict_incomeStatement[k] = self.income_statement[num][k]
+            for k in d_income_statement[year].keys():
+                dict_incomeStatement[k] = d_income_statement[year][k]
             # just use year for indexing the single statements -> [0:4]
-            data_dict["income_statement"][self.income_statement[num]["date"][0:4]] = dict_incomeStatement
+            data_dict["income_statement"][d_income_statement[year]["date"][0:4]] = dict_incomeStatement
 
+        #save dictionary to data-folder
         if save:
             with open("data/" + symbol + ".json", 'w') as file:
                 # Serialize data into file:
@@ -350,7 +314,7 @@ class FinanceAPI():
     def start_stock_screener(self):
         parameters = self.select_filter()
 
-        results = self.callAPI_financialModelingPrep_(parameters, "stockscreener")
+        results = self.callAPI_financialModelingPrep_("AAPL", "profile")#(parameters, "stock_screener")
 
         for e in range(0, len(results)):
             print(results[e]["symbol"])
@@ -376,10 +340,9 @@ class FinanceAPI():
 
         Returns
         -------
-
         dict with filter Parameters
         """
-        # place read of a GUI here later where Parameters can be selected.
+        # TODO place read of a GUI here later where Parameters can be selected.
         # for now static parameters:
         parameters = {"marketCapMoreThan": 100000000000, "sector": "Healthcare", "limit": 10}
 
@@ -392,7 +355,8 @@ class FinanceAPI():
         Parameters
         ----------
         input_data : dict with parameters for the call (see https://financialmodelingprep.com/developer/docs/#Stock-Screener)
-        call : specifiy the type of API call for constructing the string
+                     string with Ticker Symbol of the stock
+        call : specify the type of API call for constructing the string
 
         Returns
         -------
@@ -402,18 +366,55 @@ class FinanceAPI():
             print("API key not registered yet.")
             return None
 
-        if call is 'stockscreener':
+        if call is 'stock_screener':
             # TODO : data auf dict prüfen bzw richtige Eingabeparameter
             parameters = ""
             for k in input_data.keys():
                 parameters = parameters+k+"="+str(input_data[k])+"&"
-            url = "https://financialmodelingprep.com/api/v3/stock-screener?" + parameters + 'apikey=' + self.key
+            url = self.originUrl + "stock-screener?" + parameters + 'apikey=' + self.key
             response = urlopen(url)
             return json.loads(response.read().decode("utf-8"))
+
+        elif call is "income_statement":
+            dict_t = self.dataExisting(input_data)
+            if "income_statement" in dict_t:
+                return dict_t["income_statement"]
+            else:
+                url = self.originUrl + "income-statement/" + str(input_data) + "?apikey=" + self.key
+                response = urlopen(url)
+                return json.loads(response.read().decode("utf-8"))
+        elif call is "profile":
+            dict_t = self.dataExisting(input_data)
+            if "profile" in dict_t:
+                return dict_t["profile"]
+            else:
+                url = self.originUrl + "company/profile/" + str(input_data) + '?apikey=' + self.key
+                response = urlopen(url)
+                data = json.loads(response.read().decode("utf-8"))
+                return data["profile"]
         else:
             print("Type of API call not supported: "+call)
+            return {}
 
         # TODO support other types of API calls in this function
-        #if call is "profile":
-        #if call is "metrics":
-        #if call is "ratios":
+        # if call is "metrics":
+        # if call is "ratios":
+
+    def dataExisting(self, symbol):
+        """
+        Check if dict of stock already saved in data-folder
+
+        Parameter
+        ---------
+        symbol : ticker symbol of stock
+
+        Return
+        ------
+        dictionary of stock or empty dictionary if file not found
+        """
+        # Read data from file if it exists:
+        if Path("data/" + symbol + ".json").is_file():
+            with open("data/" + symbol + ".json") as file:
+                return json.load(file)
+        else:
+            return {}
