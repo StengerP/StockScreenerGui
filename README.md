@@ -1,0 +1,2 @@
+# StockScreenerGui
+StockScreener with GUI
