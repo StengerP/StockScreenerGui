@@ -9,7 +9,7 @@ import json
 import plotly.express as px
 from urllib.request import urlopen
 
-name_testdict = "BABA"
+name_testdict = "SQ"
 
 
 f = FinanceAPI()
@@ -24,19 +24,19 @@ else:
     print("No file with API key found")
     exit()
 
-f.start_stock_screener()
+#f.start_stock_screener()
 
 # Read data from file if it exists:
 if Path("data/"+name_testdict+".json").is_file():
     with open("data/"+name_testdict+".json") as file:
-        apple_dict = json.load(file)
+        company_dict = json.load(file)
 else:
-    apple_dict = f.build_dict('AAPL')
+    company_dict = f.build_dict(name_testdict)
     with open("data/"+name_testdict+".json",'w') as file:
         # Serialize data into file:
-        json.dump(apple_dict, file)
+        json.dump(company_dict, file)
 
-f.chart(apple_dict["income_statement"], type="revenue")
+f.chart(company_dict["income_statement"], type="revenue")
 
 #apple_dict=f.build_dict('AAPL')
 

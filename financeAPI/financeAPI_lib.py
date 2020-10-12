@@ -124,12 +124,13 @@ class FinanceAPI():
 
         # income statement data
         data_dict["income_statement"] = {}
-        for year in d_income_statement.keys():
+        #for year in d_income_statement.keys():
+        for e in range(0, len(d_income_statement)):
             dict_incomeStatement = {}
-            for k in d_income_statement[year].keys():
-                dict_incomeStatement[k] = d_income_statement[year][k]
+            for k in d_income_statement[e].keys():
+                dict_incomeStatement[k] = d_income_statement[e][k]
             # just use year for indexing the single statements -> [0:4]
-            data_dict["income_statement"][d_income_statement[year]["date"][0:4]] = dict_incomeStatement
+            data_dict["income_statement"][d_income_statement[e]["date"][0:4]] = dict_incomeStatement
 
         #save dictionary to data-folder
         if save:
@@ -314,7 +315,7 @@ class FinanceAPI():
     def start_stock_screener(self):
         parameters = self.select_filter()
 
-        results = self.callAPI_financialModelingPrep_("AAPL", "profile")#(parameters, "stock_screener")
+        results = self.callAPI_financialModelingPrep_(parameters, "stock_screener") #("AAPL", "profile")
 
         for e in range(0, len(results)):
             print(results[e]["symbol"])
