@@ -8,8 +8,34 @@ import matplotlib.pyplot as plt
 import json
 import plotly.express as px
 from urllib.request import urlopen
+from classes.stock import Stock
 
 name_testdict = "SQ"
+
+# Relevant API calls
+""" 
+Historical data
+"""
+# Hist. (daily) prices
+# https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?from=2018-03-12&to=2019-03-12&apikey=e525189853e67230f6ff8f8734c00b5b
+# Hist. dividends:
+# https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/AAPL?apikey=e525189853e67230f6ff8f8734c00b5b
+""" 
+Stock Screener
+"""
+# Search companies by several attributes (marketCap, industry, sector etc.) example:
+# https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000&betaMoreThan=1&volumeMoreThan=10000&sector=Technology&industry=Software&exchange=NASDAQ&dividendMoreThan=0&limit=100&apikey=e525189853e67230f6ff8f8734c00b5b
+
+"""
+Analyst Estimates (Paid feature =( )
+"""
+# Earnings, Revenue etc. for the next few years
+# https://financialmodelingprep.com/api/v3/analyst-estimates/AAPL?period=quarter&limit=30&apikey=e525189853e67230f6ff8f8734c00b5b
+# https://financialmodelingprep.com/api/v3/analyst-estimates/AAPL?limit=30&apikey=e525189853e67230f6ff8f8734c00b5b
+""" 
+Calendars
+"""
+# IPOs (Paid feature =( ) , Dividends etc.
 
 
 f = FinanceAPI()
@@ -25,6 +51,10 @@ else:
     exit()
 
 #f.start_stock_screener()
+
+Square = Stock('SQ')
+Microsoft = Stock('MSFT')
+
 
 # Read data from file if it exists:
 if Path("data/"+name_testdict+".json").is_file():

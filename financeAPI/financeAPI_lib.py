@@ -349,7 +349,7 @@ class FinanceAPI():
 
         return parameters
 
-    def callAPI_financialModelingPrep_(self, input_data, call="profile"):
+    def callAPI_financialModelingPrep_(self, input_data, period="annual", call="profile"):
         """
         make call of the financialModelingPrep API with given parameters
 
@@ -377,13 +377,20 @@ class FinanceAPI():
             return json.loads(response.read().decode("utf-8"))
 
         elif call is "income_statement":
-            dict_t = self.dataExisting(input_data)
-            if "income_statement" in dict_t:
-                return dict_t["income_statement"]
+            #dict_t = self.dataExisting(input_data)
+            #if "income_statement" in dict_t:
+            #    return dict_t["income_statement"]
+            #else:
+            #    url = self.originUrl + "income-statement/" + str(input_data) + "?apikey=" + self.key
+            #    response = urlopen(url)
+            #    return json.loads(response.read().decode("utf-8"))
+            if period == "quarter":
+                url = self.originUrl + "income-statement/" + str(input_data) + "?" + "period=" + str(period) + "&apikey=" + self.key
+                response = urlopen(url)
             else:
                 url = self.originUrl + "income-statement/" + str(input_data) + "?apikey=" + self.key
                 response = urlopen(url)
-                return json.loads(response.read().decode("utf-8"))
+            return json.loads(response.read().decode("utf-8"))
         elif call is "profile":
             dict_t = self.dataExisting(input_data)
             if "profile" in dict_t:
