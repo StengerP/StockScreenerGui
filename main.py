@@ -9,6 +9,7 @@ import json
 import plotly.express as px
 from urllib.request import urlopen
 from classes.stock import Stock
+from classes.screener import Screener
 
 name_testdict = "SQ"
 
@@ -53,20 +54,31 @@ else:
 #f.start_stock_screener()
 
 Square = Stock('SQ')
-Microsoft = Stock('MSFT')
+PayPal = Stock('PYPL')
+#Visa = Stock('V')
+#Mastercard = Stock('MA')
+#Microsoft = Stock('MSFT')
 
 
 # Read data from file if it exists:
-if Path("data/"+name_testdict+".json").is_file():
-    with open("data/"+name_testdict+".json") as file:
-        company_dict = json.load(file)
-else:
-    company_dict = f.build_dict(name_testdict)
-    with open("data/"+name_testdict+".json",'w') as file:
-        # Serialize data into file:
-        json.dump(company_dict, file)
+#if Path("data/"+name_testdict+".json").is_file():
+#    with open("data/"+name_testdict+".json") as file:
+#        company_dict = json.load(file)
+#else:
+#    company_dict = f.build_dict(name_testdict)
+#    with open("data/"+name_testdict+".json",'w') as file:
+#        # Serialize data into file:
+#        json.dump(company_dict, file)
 
-f.chart(company_dict["income_statement"], type="revenue")
+#f.chart(company_dict["income_statement"], type="revenue")
+
+#f.chart(Square.fundamentals["income_statement"], type="revenue")
+#f.chart(PayPal.fundamentals["income_statement"], type="revenue")
+#f.chart(Visa.fundamentals["income_statement"], type="revenue")
+#f.chart(Mastercard.fundamentals["income_statement"], type="revenue")
+
+#Screener.plot_revenue([Square, PayPal])
+Screener.plot_revenue(Square)
 
 #apple_dict=f.build_dict('AAPL')
 

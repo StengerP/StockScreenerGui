@@ -302,8 +302,9 @@ class FinanceAPI():
         data_x = []
         data_y = []
         for k in input.keys():
-            data_x.append(k)
-            data_y.append(input[k][type])
+            if 'Annual' in input[k]:
+                data_x.append(k)
+                data_y.append(input[k]['Annual'][type])
         #growth = (data_y[1] - data_y[0])/data_y[1]
         fig = go.Figure(data=[go.Bar(x=data_x,y=data_y)]) #hovertext=['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19'])])
         # Customize aspect
