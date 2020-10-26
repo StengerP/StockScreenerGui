@@ -401,6 +401,10 @@ class FinanceAPI():
                 response = urlopen(url)
                 data = json.loads(response.read().decode("utf-8"))
                 return data["profile"]
+        elif call is 'growth':
+            url = self.originUrl + "income-statement-growth/" + str(input_data) + "?apikey=" + self.key
+            response = urlopen(url)
+            return json.loads(response.read().decode("utf-8"))
         else:
             print("Type of API call not supported: "+call)
             return {}
