@@ -10,24 +10,39 @@ class Stock:
 
     def __init__(self, symbol:str):
         self.symbol = symbol
+
         self.fundamentalsAnnual = pd.DataFrame(columns=['time', 'year', 'revenue', 'grossProfit', 'operatingIncome', 'netProfit',
                                                         'grossMargin', 'operatingMargin', 'profitMargin'])
         self.fundamentalsQuarter = pd.DataFrame(columns=['time', 'quarter', 'revenue', 'grossProfit', 'operatingIncome', 'netProfit',
                                                          'grossMargin', 'operatingMargin', 'profitMargin'])
         self.growthAnnual = pd.DataFrame(columns=['time', 'revGrowth', 'profitGrowth'])
         self.growthQuarter = pd.DataFrame(columns=['time', 'revGrowth', 'profitGrowth'])
-        self.revenueAnnual = pd.DataFrame(columns=['year', 'revenue'])
-        self.revenueQuarter = pd.DataFrame(columns=['quarter', 'revenue'])
+
+        # Initialized in self._init_data()
+        # TODO maybe use DF_xxx instead of fundamentalsAnnual/Quarter & growthAnnual in future
+        self.DF_fundamentalsAnnual = pd.DataFrame()
+        self.DF_fundamentalsQuarter = pd.DataFrame()
+        self.DF_growthAnnual = pd.DataFrame()
+        #self.DF_growthQuarter = pd.DataFrame()
+
         self.data = self._init_data()
-        self.chart = self._load_chartHistory()
+        self.chart_onePerDay = self._load_chartHistory(period='1d')
+
+
+        # TODO tbd - daily charts with 1min, 5min, ..., 1h, 4h intervalls
+        #self.chart_daily = self._load_chartHistory(XXX)
+
         Stock.n_stocks += 1
+
 
     @classmethod
     def counter(cls):
         return cls.n_stocks
 
-    def _load_chartHistory(self):
-        pass
+    def _load_chartHistory(self, period='1d'):
+        if period == '1d':
+            hist = Stock.API.callAPI_financialModelingPrep_(self.symbol, call="dailychart")
+        return pd.DataFrame(hist['historical'])
 
     def _init_data(self, save=False):
 
@@ -64,7 +79,8 @@ class Stock:
 
         # Annual
         income_statement = Stock.API.callAPI_financialModelingPrep_(self.symbol, call="income_statement")
-        for e in range(0, len(income_statement)):
+        self.DF_fundamentalsAnnual = pd.DataFrame(income_statement)
+        for e in range(len(income_statement)-1, -1, -1):
             d_incomeStatement = {}
             for k in income_statement[e].keys():
                 d_incomeStatement[k] = income_statement[e][k]
@@ -80,10 +96,9 @@ class Stock:
             opMargin = income_statement[e]['operatingIncomeRatio']
             netMargin = income_statement[e]['netIncomeRatio']
             # TODO Add Cost-Numbers (R&D, Sales etc.)
-            self.revenueAnnual.loc[e] = [year, rev]
+            #self.revenueAnnual.loc[e] = [year, rev]
             self.fundamentalsAnnual.loc[e] = [timestamp, year, rev, grossprofit, opincome, netprofit,
                                               grMargin, opMargin, netMargin]
-
             # just use year for indexing -> [0:4]
             if year not in data["income_statement"]:
                 data["income_statement"][year] = {}
@@ -91,6 +106,7 @@ class Stock:
 
         #calculate growth (load from API)
         income_statement_growth = Stock.API.callAPI_financialModelingPrep_(self.symbol, call="growth")
+        self.DF_growthAnnual = pd.DataFrame(income_statement_growth)
         for e in range(0, len(income_statement_growth)):
             revGrowth = income_statement_growth[e]['growthRevenue']
             profitGrowth = income_statement_growth[e]['growthNetIncome']
@@ -99,7 +115,13 @@ class Stock:
 
         # Quarters
         income_statement_quarter = Stock.API.callAPI_financialModelingPrep_(self.symbol, period="quarter", call="income_statement")
-        for e in range(0, len(income_statement_quarter)):
+        self.DF_fundamentalsQuarter = pd.DataFrame(income_statement_quarter)
+        'revenue', 'grossProfit', 'operatingIncome', 'netProfit',
+        'grossMargin', 'operatingMargin', 'profitMargin'
+
+        timestamp_TTM, rev_TTM, grossProfit_TTM, operatingIncome_TTM, netProfit_TTM = 0, 0, 0, 0, 0,
+        c_quarters = 0
+        for e in range(len(income_statement_quarter)-1, -1, -1):
             d_incomeStatement = {}
             for k in income_statement_quarter[e].keys():
                 d_incomeStatement[k] = income_statement_quarter[e][k]
@@ -117,7 +139,7 @@ class Stock:
             netMargin = income_statement_quarter[e]['netIncomeRatio']
             # TODO Add Cost-Numbers (R&D, Sales etc.)
             period = "{Y}-{Q}".format(Y=year, Q=quarter)
-            self.revenueQuarter.loc[e] = [period, rev]
+            #self.revenueQuarter.loc[e] = [period, rev]
             self.fundamentalsQuarter.loc[e] = [timestamp, period, rev, grossprofit, opincome, netprofit,
                                                grMargin, opMargin, netMargin]
 
@@ -126,8 +148,21 @@ class Stock:
                 data["income_statement"][year] = {}
             data["income_statement"][year][quarter] = d_incomeStatement
 
+            #TTM data (last 4 quarters)
+            if e < 4:
+                if e == 0:
+                    timestamp_TTM = timestamp
+                rev_TTM += rev
+                grossProfit_TTM += grossprofit
+                operatingIncome_TTM += opincome
+                netProfit_TTM += netprofit
+                #c_quarters += 1
+        # TODO add TTM at the beginning of the Dataframe. Maybe solve problem with indexing 0 -> 2017 1->2018 2 -> 2019 3->TTM
+        self.fundamentalsAnnual.loc[5] = [timestamp_TTM, 'TTM', rev_TTM, grossProfit_TTM, operatingIncome_TTM,
+                                           netProfit_TTM, grossProfit_TTM/rev_TTM, operatingIncome_TTM/rev_TTM, netProfit_TTM/rev_TTM]
+
         #calculate growth
-        for e in range(0, len(self.fundamentalsQuarter)):
+        for e in range(len(self.fundamentalsQuarter)-1, -1, -1):
            if not e == self.fundamentalsQuarter.shape[0]-1: # Anzahl Zeilen des Dataframes
                revGrowth = (self.fundamentalsQuarter.iloc[e]['revenue'] / self.fundamentalsQuarter.iloc[e+1]['revenue'])-1
                profitGrowth = (self.fundamentalsQuarter.iloc[e]['netProfit'] / self.fundamentalsQuarter.iloc[e+1]['netProfit'])-1
@@ -155,3 +190,20 @@ class Stock:
                 # Serialize data into file:
                 json.dump(data, file)
         return data
+
+    def kgv(self):
+
+        pass
+
+    # Get Methods
+    def get_fundamentalsAnnual(self):
+        return self.fundamentalsAnnual
+
+    def get_fundamentalsQuarter(self):
+        return self.fundamentalsQuarter
+
+    def get_growthAnnual(self):
+        return self.fundamentalsAnnual
+
+    def get_growthQuarter(self):
+        return self.fundamentalsQuarter

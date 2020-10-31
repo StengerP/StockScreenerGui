@@ -54,7 +54,8 @@ else:
 #f.start_stock_screener()
 
 Square = Stock('SQ')
-PayPal = Stock('PYPL')
+#PayPal = Stock('PYPL')
+#CDProjekt = Stock('7CD')
 #Visa = Stock('V')
 #Mastercard = Stock('MA')
 #Microsoft = Stock('MSFT')
@@ -78,7 +79,9 @@ PayPal = Stock('PYPL')
 #f.chart(Mastercard.fundamentals["income_statement"], type="revenue")
 
 #Screener.plot_revenue([Square, PayPal])
-Screener.plot_revenue(Square)
+#Screener.plot_revenue(Square)
+#Screener.plot_netprofit(Square)
+#Screener.plot_revenue(CDProjekt)
 
 #apple_dict=f.build_dict('AAPL')
 

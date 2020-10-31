@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main.py" line="95" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/main.py" line="98" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a8f38b9-857b-4e32-bb9a-7035272c9e23" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/classes/screener.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/screener.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/screener.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/stock.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/stock.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/financeAPI/financeAPI_lib.py" beforeDir="false" afterPath="$PROJECT_DIR$/financeAPI/financeAPI_lib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -23,8 +23,8 @@
       <file leaf-file-name="financeAPI_lib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/financeAPI/financeAPI_lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+            <state relative-caret-position="385">
+              <caret line="410" selection-start-line="410" selection-end-line="410" />
               <folding>
                 <element signature="e#161#179#0" expanded="true" />
               </folding>
@@ -35,10 +35,11 @@
       <file leaf-file-name="screener.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/screener.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="544">
+              <caret line="32" column="32" lean-forward="true" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#1711#3198#0" />
               </folding>
             </state>
           </provider>
@@ -47,10 +48,11 @@
       <file leaf-file-name="stock.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/stock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="89" column="49" lean-forward="true" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
+            <state relative-caret-position="217">
+              <caret line="160" column="27" selection-start-line="160" selection-start-column="27" selection-end-line="160" selection-end-column="27" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
+                <element signature="e#1285#1443#0" />
               </folding>
             </state>
           </provider>
@@ -59,11 +61,20 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="72" column="58" lean-forward="true" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
+            <state relative-caret-position="173">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
               <folding>
                 <element signature="e#14#62#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="308" selection-start-line="308" selection-end-line="308" />
             </state>
           </provider>
         </entry>
@@ -103,10 +114,10 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/ToDo.md" />
         <option value="$PROJECT_DIR$/testQuandl.py" />
+        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/financeAPI/financeAPI_lib.py" />
         <option value="$PROJECT_DIR$/classes/screener.py" />
         <option value="$PROJECT_DIR$/classes/stock.py" />
-        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -313,32 +324,46 @@
       <option name="project" value="LOCAL" />
       <updated>1603314441748</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="##### - adding screener class with first plot function&#10;##### - improving Stock class with revenue list">
+      <created>1603489638745</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603489638745</updated>
+    </task>
+    <task id="LOCAL-00009" summary="##### - adding more numbers besides revenue - adding growth numbers">
+      <created>1603672777826</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603672777884</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17604166" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="R Packages" order="3" />
-      <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50104165" side_tool="true" weight="0.3195329" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947917" weight="0.32908705" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6109375" weight="0.3492569" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17604166" />
+      <window_info anchor="right" id="R Packages" order="3" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32908705" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49895832" visible="true" weight="0.35881105" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49895832" visible="true" weight="0.39808917" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32908705" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -379,7 +404,9 @@
     <MESSAGE value="##### - API call in one function callAPI_financialModelingPrep_ with parameter inout for defining how the API call is made" />
     <MESSAGE value="##### - Test commit" />
     <MESSAGE value="##### - stock class for representing company with serveral fundamentals" />
-    <option name="LAST_COMMIT_MESSAGE" value="##### - stock class for representing company with serveral fundamentals" />
+    <MESSAGE value="##### - adding screener class with first plot function&#10;##### - improving Stock class with revenue list" />
+    <MESSAGE value="##### - adding more numbers besides revenue - adding growth numbers" />
+    <option name="LAST_COMMIT_MESSAGE" value="##### - adding more numbers besides revenue - adding growth numbers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -401,18 +428,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>63</line>
+          <line>64</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>80</line>
+          <line>81</line>
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/classes/stock.py</url>
-          <line>92</line>
-          <option name="timeStamp" value="96" />
+          <line>164</line>
+          <option name="timeStamp" value="134" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -422,12 +449,13 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="97" />
+      <option name="time" value="136" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="dict_t['income_statement']" />
         <watch expression="Square.fundamentals['income_statement']['2018']" />
+        <watch expression="file" />
       </configuration>
     </watches-manager>
   </component>
@@ -733,49 +761,65 @@
     <entry file="file://$PROJECT_DIR$/data/AMZN.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/indexing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        <state relative-caret-position="180">
+          <caret line="2062" selection-start-line="2062" selection-end-line="2062" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/financeAPI/financeAPI_lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+        <state relative-caret-position="385">
+          <caret line="410" selection-start-line="410" selection-end-line="410" />
           <folding>
             <element signature="e#161#179#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classes/screener.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="544">
+          <caret line="32" column="32" lean-forward="true" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#1711#3198#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="72" column="58" lean-forward="true" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
+        <state relative-caret-position="173">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
           <folding>
             <element signature="e#14#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/internals/construction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="354" selection-start-line="354" selection-end-line="354" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classes/stock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="89" column="49" lean-forward="true" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
+        <state relative-caret-position="217">
+          <caret line="160" column="27" selection-start-line="160" selection-start-column="27" selection-end-line="160" selection-end-column="27" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
+            <element signature="e#1285#1443#0" />
           </folding>
         </state>
       </provider>

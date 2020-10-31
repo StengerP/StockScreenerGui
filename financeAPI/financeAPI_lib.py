@@ -405,6 +405,10 @@ class FinanceAPI():
             url = self.originUrl + "income-statement-growth/" + str(input_data) + "?apikey=" + self.key
             response = urlopen(url)
             return json.loads(response.read().decode("utf-8"))
+        elif call is 'dailychart':
+            url = self.originUrl + "historical-price-full/" + str(input_data) + "?apikey=" + self.key
+            response = urlopen(url)
+            return json.loads(response.read().decode("utf-8"))
         else:
             print("Type of API call not supported: "+call)
             return {}
